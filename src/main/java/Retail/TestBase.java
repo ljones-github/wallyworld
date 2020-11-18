@@ -22,11 +22,11 @@ import org.openqa.selenium.support.ui.Select;
 
 public class TestBase {
 	
-	WebDriver driver;
-	String myBrowser;
+	static WebDriver driver;
+	static String myBrowser;
 	
 	
-	public WebDriver initializeDriver()
+	public static WebDriver initializeDriver()
 	{
 		myBrowser = System.getProperty("browser");
 		
@@ -46,7 +46,7 @@ public class TestBase {
 				ChromeOptions co = new ChromeOptions();
 				co.addArguments("headless");
 				co.merge(dc);
-				this.driver = new ChromeDriver(co);
+				driver = new ChromeDriver(co);
 				driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 			}
 			
@@ -54,7 +54,7 @@ public class TestBase {
 			dc.acceptInsecureCerts();
 			ChromeOptions co = new ChromeOptions();
 			co.merge(dc);
-			this.driver = new ChromeDriver();
+			driver = new ChromeDriver();
 			driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 		}
 		else if(myBrowser.contains("firefox"))
@@ -64,7 +64,7 @@ public class TestBase {
 			dc.acceptInsecureCerts();
 			FirefoxOptions ffo = new FirefoxOptions();
 			ffo.merge(dc);
-			this.driver = new FirefoxDriver(ffo);
+			driver = new FirefoxDriver(ffo);
 			driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 		}
 		else
@@ -74,7 +74,7 @@ public class TestBase {
 			dc.acceptInsecureCerts();
 			InternetExplorerOptions ieo = new InternetExplorerOptions();
 			ieo.merge(dc);
-			this.driver = new InternetExplorerDriver(ieo);
+			driver = new InternetExplorerDriver(ieo);
 		}
 		
 		return driver;
