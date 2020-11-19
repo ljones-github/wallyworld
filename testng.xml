@@ -2,5 +2,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
   <test thread-count="5" name="Test">
+  <parameter name="info" value="yikers"/>
+  <classes>
+  	<class name="Retail.WalmartHeaderTest"/>
+  </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

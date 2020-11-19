@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -13,7 +12,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import jdk.jfr.Timespan;
 import junit.framework.Assert;
 
 public class WalmartHomeHeader{
@@ -56,7 +58,7 @@ public class WalmartHomeHeader{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void trackOrders() throws IOException
+	public void trackOrders() throws IOException, InterruptedException
 	{
 		methodName = new Throwable().getStackTrace()[0].getMethodName();
 		Actions s = new Actions(driver);
@@ -68,12 +70,14 @@ public class WalmartHomeHeader{
 		s.click(hamburgerButton).build().perform();
 		log.info("Element successfully clicked");
 		
-		WebElement ele = driver.findElement(By.cssSelector(".b_a.o_a.o_az.o_o.o_f.bm_c.b_f"));
-		WebElement trackOrders = driver.findElement(By.xpath("//a[@data-index='0']"));
+		WebDriverWait myWait = new WebDriverWait(driver, 5000);
+		myWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']"))));
+		WebElement trackOrders = driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']//a[@data-index='0']"));
 		log.debug("Attempting to click on element");
 		s.click(trackOrders).build().perform();
 		log.info("Element successfully clicked");
 		
+		Thread.sleep(5000);
 		Assert.assertTrue(driver.getCurrentUrl().contains("trackorder"));
 		
 		WebElement email = driver.findElement(By.id("email"));
@@ -88,6 +92,7 @@ public class WalmartHomeHeader{
 			log.debug("Attempting to click on element");
 			s.click(orderStatusButton).build().perform();
 			log.info("Element successfully clicked");
+			Thread.sleep(2000);
 		} 
 		catch (Exception e) 
 		{
@@ -99,6 +104,9 @@ public class WalmartHomeHeader{
 			//Do-something if neccessary
 		}
 	
+		WebElement correctErrors = driver.findElement(By.xpath(("//span[@data-automation-id='track-order-form-alert']")));
+		String errorAlert = correctErrors.getText();
+		Assert.assertTrue(errorAlert.contains("correct"));
 		
 	}
 }

@@ -37,7 +37,7 @@ public class TestBase {
 		
 		if(myBrowser.contains("chrome"))
 		{
-			System.setProperty("webdriver.chrome.driver", "C:\\Users\\ljone\\Walmart\\Resources\\drivers\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\Resources\\drivers\\chromedriver.exe");
 			
 			if(myBrowser.contains("headless"))
 			{
@@ -47,34 +47,40 @@ public class TestBase {
 				co.addArguments("headless");
 				co.merge(dc);
 				driver = new ChromeDriver(co);
+				driver.manage().window().maximize();
 				driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 			}
 			
 			DesiredCapabilities dc = new DesiredCapabilities();
 			dc.acceptInsecureCerts();
 			ChromeOptions co = new ChromeOptions();
+			co.setBinary(System.getProperty("user.dir") + "\\Resources\\drivers\\chromedriver.exe");
 			co.merge(dc);
 			driver = new ChromeDriver();
+			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 		}
 		else if(myBrowser.contains("firefox"))
 		{
-			System.setProperty("webdriver.gecko.driver", "C:\\Users\\ljone\\Walmart\\Resources\\drivers\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\Resources\\drivers\\geckodriver.exe");
 			DesiredCapabilities dc = new DesiredCapabilities();
 			dc.acceptInsecureCerts();
 			FirefoxOptions ffo = new FirefoxOptions();
 			ffo.merge(dc);
 			driver = new FirefoxDriver(ffo);
+			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 		}
 		else
 		{
-			System.setProperty("webdriver.ie.driver", "C:\\Users\\ljone\\Walmart\\Resources\\drivers\\IEDriverServer.exe");
+			System.setProperty("webdriver.ie.driver", System.getProperty("user.dir") + "\\Resources\\drivers\\\\IEDriverServer.exe");
 			DesiredCapabilities dc = new DesiredCapabilities();
 			dc.acceptInsecureCerts();
 			InternetExplorerOptions ieo = new InternetExplorerOptions();
 			ieo.merge(dc);
 			driver = new InternetExplorerDriver(ieo);
+			driver.manage().window().maximize();
+			driver.manage().timeouts().implicitlyWait(4000, TimeUnit.MILLISECONDS);
 		}
 		
 		return driver;

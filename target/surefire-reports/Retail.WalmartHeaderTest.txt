@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: Retail.WalmartHeaderTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 21.007 s <<< FAILURE! - in Retail.WalmartHeaderTest
+Retail.WalmartHeaderTest.wallyTrackOrder  Time elapsed: 1.356 s  <<< FAILURE!
+org.openqa.selenium.InvalidSelectorException: 
+Given css selector expression "//div[@data-tl-id='header-top-links']" is invalid: InvalidSelectorError: Document.querySelector: '//div[@data-tl-id='header-top-links']' is not a valid selector: "//div[@data-tl-id='header-top-links']"
+For documentation on this error, please visit: https://www.seleniumhq.org/exceptions/invalid_selector_exception.html
+Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:17:03'
+System info: host: 'DESKTOP-HKAACU0', ip: '192.168.43.12', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '11.0.6'
+Driver info: org.openqa.selenium.firefox.FirefoxDriver
+Capabilities {acceptInsecureCerts: true, browserName: firefox, browserVersion: 82.0.3, javascriptEnabled: true, moz:accessibilityChecks: false, moz:buildID: 20201108180448, moz:geckodriverVersion: 0.28.0, moz:headless: false, moz:processID: 5200, moz:profile: C:\Users\ljone\AppData\Loca..., moz:shutdownTimeout: 60000, moz:useNonSpecCompliantPointerOrigin: false, moz:webdriverClick: true, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, platformVersion: 10.0, rotatable: false, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 35634044-a727-476d-8c2b-4d879b4b1008
+*** Element info: {Using=css selector, value=//div[@data-tl-id='header-top-links']}
+	at Retail.WalmartHeaderTest.wallyTrackOrder(WalmartHeaderTest.java:33)
+
