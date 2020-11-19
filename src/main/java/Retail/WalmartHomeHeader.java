@@ -1,8 +1,8 @@
 package Retail;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,13 +14,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import jdk.jfr.Timespan;
 import junit.framework.Assert;
 
 public class WalmartHomeHeader{
 	
 	WebDriver driver;
+	WebDriverWait myWait;
 	String methodName;
 	
 	private static Logger log = LogManager.getLogger(WalmartHomeHeader.class.getName());
@@ -56,13 +55,14 @@ public class WalmartHomeHeader{
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
+		myWait = new WebDriverWait(driver, 5000);
 	}
 	
 	public void trackOrders() throws IOException, InterruptedException
 	{
 		methodName = new Throwable().getStackTrace()[0].getMethodName();
 		Actions s = new Actions(driver);
-		FileInputStream fis = new FileInputStream("C:\\Users\\ljone\\Walmart\\Resources\\data.properties");
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\Resources\\data.properties");
 		Properties myProps = new Properties();
 		myProps.load(fis);
 		
@@ -70,7 +70,6 @@ public class WalmartHomeHeader{
 		s.click(hamburgerButton).build().perform();
 		log.info("Element successfully clicked");
 		
-		WebDriverWait myWait = new WebDriverWait(driver, 5000);
 		myWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']"))));
 		WebElement trackOrders = driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']//a[@data-index='0']"));
 		log.debug("Attempting to click on element");
@@ -101,12 +100,89 @@ public class WalmartHomeHeader{
 		
 		finally
 		{
-			//Do-something if neccessary
+			//Do-something if necessary
 		}
 	
 		WebElement correctErrors = driver.findElement(By.xpath(("//span[@data-automation-id='track-order-form-alert']")));
 		String errorAlert = correctErrors.getText();
 		Assert.assertTrue(errorAlert.contains("correct"));
 		
+	}
+	
+	public void reorderItems() throws IOException, InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		Actions s = new Actions(driver);
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\Resources\\data.properties");
+		Properties myProps = new Properties();
+		myProps.load(fis);
+		
+		log.debug("Attempting to click on element");
+		s.click(hamburgerButton).build().perform();
+		log.info("Element successfully clicked");
+		
+		myWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']"))));
+		WebElement reorderItems = driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']//a[@data-index='1']"));
+		s.click(reorderItems).build().perform();
+		Thread.sleep(3000);
+		Assert.assertTrue(driver.getCurrentUrl().contains("easyreorder"));
+		
+	}
+	
+	public void lists() throws IOException, InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		Actions s = new Actions(driver);
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\Resources\\data.properties");
+		Properties myProps = new Properties();
+		myProps.load(fis);
+		
+		log.debug("Attempting to click on element");
+		s.click(hamburgerButton).build().perform();
+		log.info("Element successfully clicked");
+		
+		myWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']"))));
+		WebElement lists = driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']//a[@data-index='2']"));
+		s.click(lists).build().perform();
+		Thread.sleep(3000);
+		Assert.assertTrue(driver.getCurrentUrl().contains("lists"));
+	}
+	
+	public void walmartPlus() throws IOException, InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		Actions s = new Actions(driver);
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\Resources\\data.properties");
+		Properties myProps = new Properties();
+		myProps.load(fis);
+		
+		log.debug("Attempting to click on element");
+		s.click(hamburgerButton).build().perform();
+		log.info("Element successfully clicked");
+		
+		myWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']"))));
+		WebElement wallyPlus = driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']//a[@data-index='3']"));
+		s.click(wallyPlus).build().perform();
+		Thread.sleep(5000);
+		
+		Assert.assertTrue(driver.getCurrentUrl().contains("plus"));
+	}
+	
+	public void walmartCredit() throws IOException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		Actions s = new Actions(driver);
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\Resources\\data.properties");
+		Properties myProps = new Properties();
+		myProps.load(fis);
+		
+		log.debug("Attempting to click on element");
+		s.click(hamburgerButton).build().perform();
+		log.info("Element successfully clicked");
+		
+		myWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']"))));
+		WebElement wallyPlus = driver.findElement(By.xpath("//div[@data-tl-id='header-top-links']//a[@data-index='3']"));
+		s.click(wallyPlus).pause(Duration.ofMillis(5000)).build().perform();
+		Assert.assertTrue(driver.getCurrentUrl().contains("credit-card"));
 	}
 }

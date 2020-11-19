@@ -2,9 +2,14 @@ package Retail;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -19,6 +24,10 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
+
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
 public class TestBase {
 	
@@ -91,6 +100,38 @@ public class TestBase {
 		File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		String dest = System.getProperty("user.dir") + "\\Resources\\Screenshots\\" + methodName + ".png";
 		FileHandler.copy(src, new File(dest));
+	}
+	
+	public String TakeAFULLScreenshot(String methodName, WebDriver driver) throws IOException
+	{
+		//File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		String dest = System.getProperty("user.dir") + "\\Resources\\Screenshots\\" + methodName + ".png";
+		
+		 Screenshot screenshot=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);             
+		 try
+		 {
+		 	Path fileToDelete = Paths.get(dest);
+			
+			if(fileToDelete.toFile().exists())
+			{
+				Files.delete(fileToDelete);
+			}
+		 }
+		 
+		 catch(Exception e)
+		 {
+			 System.out.println("Error desc: " + e);
+		 }
+		 
+		  try 
+		  {                 
+			  ImageIO.write(screenshot.getImage(),"PNG",new File(dest));             
+		  } 
+		  catch (IOException e) 
+		  { 
+			  System.out.println("Error desc: " + e);
+		  }
+		return dest;
 	}
 
 	public ArrayList<String> dropDownOptions(WebElement dropdown)

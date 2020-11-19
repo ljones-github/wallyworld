@@ -32,6 +32,32 @@ public class WalmartHeaderTest extends TestBase{
 		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
 		wally.trackOrders();
 	}
+
+	@Test
+	public void wallyReorderItems() throws IOException, InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
+		wally.reorderItems();
+	}
+	
+	@Test
+	public void wallyLists() throws IOException, InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
+		wally.lists();
+	}
+	
+	@Test
+	public void wallyPlus() throws IOException, InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
+		wally.walmartPlus();
+		WalmartHeaderTest wht = new WalmartHeaderTest();
+		wht.TakeAFULLScreenshot(methodName, driver);
+	}
 	
 	@AfterMethod
 	public void tearDown()
