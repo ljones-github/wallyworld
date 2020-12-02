@@ -6,8 +6,8 @@
     <classes>
       <class name="Retail.WalmartHeaderTest">
         <methods>
+          <include name="wallyLocation"/>
           <include name="tearDown"/>
-          <include name="wallyTrackOrder"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- Retail.WalmartHeaderTest -->

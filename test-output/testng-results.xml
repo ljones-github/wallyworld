@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="4" total="5" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2020-11-19T10:47:41 PST" name="Suite" finished-at="2020-11-19T10:48:19 PST" duration-ms="38054">
+  <suite started-at="2020-12-02T11:52:40 PST" name="Suite" finished-at="2020-12-02T11:53:50 PST" duration-ms="70086">
     <groups>
     </groups>
-    <test started-at="2020-11-19T10:47:41 PST" name="Test" finished-at="2020-11-19T10:48:19 PST" duration-ms="38054">
+    <test started-at="2020-12-02T11:52:40 PST" name="Test" finished-at="2020-12-02T11:53:50 PST" duration-ms="70086">
       <class name="Retail.WalmartHeaderTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:Retail.WalmartHeaderTest@44a7bfbc]" started-at="2020-11-19T10:47:41 PST" name="setUp" finished-at="2020-11-19T10:48:08 PST" duration-ms="26274" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:Retail.WalmartHeaderTest@c333c60]" started-at="2020-12-02T11:52:40 PST" name="setUp" finished-at="2020-12-02T11:52:49 PST" duration-ms="8900" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="wallyTrackOrder()[pri:0, instance:Retail.WalmartHeaderTest@44a7bfbc]" started-at="2020-11-19T10:48:08 PST" name="wallyTrackOrder" finished-at="2020-11-19T10:48:17 PST" duration-ms="9900" status="PASS">
+        <test-method signature="wallyLocation()[pri:0, instance:Retail.WalmartHeaderTest@c333c60]" started-at="2020-12-02T11:52:49 PST" name="wallyLocation" finished-at="2020-12-02T11:53:49 PST" duration-ms="60286" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- wallyTrackOrder -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:Retail.WalmartHeaderTest@44a7bfbc]" started-at="2020-11-19T10:48:17 PST" name="tearDown" finished-at="2020-11-19T10:48:19 PST" duration-ms="1784" status="PASS">
+        </test-method> <!-- wallyLocation -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:Retail.WalmartHeaderTest@c333c60]" started-at="2020-12-02T11:53:49 PST" name="tearDown" finished-at="2020-12-02T11:53:50 PST" duration-ms="865" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

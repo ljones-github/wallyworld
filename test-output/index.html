@@ -102,7 +102,7 @@
                     <div class="method-list-content passed suite-Suite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="Retail.WalmartHeaderTest" class="method navigator-link" hash-for-method="wallyTrackOrder">wallyTrackOrder</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-Suite" title="Retail.WalmartHeaderTest" class="method navigator-link" hash-for-method="wallyLocation">wallyLocation</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Suite -->
@@ -125,9 +125,9 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="wallyTrackOrder">
-                  </a> <!-- wallyTrackOrder -->
-                  <span class="method-name">wallyTrackOrder</span>
+                  <a name="wallyLocation">
+                  </a> <!-- wallyLocation -->
+                  <span class="method-name">wallyLocation</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -145,7 +145,11 @@
   &lt;test thread-count=&quot;5&quot; name=&quot;Test&quot;&gt;
     &lt;parameter name=&quot;info&quot; value=&quot;yikers&quot;/&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;Retail.WalmartHeaderTest&quot;/&gt;
+      &lt;class name=&quot;Retail.WalmartHeaderTest&quot;&gt;
+        &lt;methods&gt;
+          &lt;include name=&quot;wallyLocation&quot;/&gt;
+        &lt;/methods&gt;
+      &lt;/class&gt; &lt;!-- Retail.WalmartHeaderTest --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Test --&gt;
 &lt;/suite&gt; &lt;!-- Suite --&gt;
@@ -187,14 +191,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'wallyTrackOrder')
+data.setCell(0, 1, 'wallyLocation')
 data.setCell(0, 2, 'Retail.WalmartHeaderTest')
-data.setCell(0, 3, 9900);
+data.setCell(0, 3, 60286);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 9 seconds</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
@@ -209,9 +213,22 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">4 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">Retail.WalmartHeaderTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">wallyPlus</span>
+                <br/>
+                <span class="ignored-method-name">wallyReorderItems</span>
+                <br/>
+                <span class="ignored-method-name">wallyTrackOrder</span>
+                <br/>
+                <span class="ignored-method-name">wallyLists</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-Suite" class="panel">
@@ -226,12 +243,12 @@ return data;
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">wallyTrackOrder</span>
-                <span class="method-start">26276 ms</span>
+                <span class="method-name">wallyLocation</span>
+                <span class="method-start">8900 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">36187 ms</span>
+                <span class="method-start">69196 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -104,7 +106,6 @@ public class TestBase {
 	
 	public String TakeAFULLScreenshot(String methodName, WebDriver driver) throws IOException
 	{
-		//File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		String dest = System.getProperty("user.dir") + "\\Resources\\Screenshots\\" + methodName + ".png";
 		
 		 Screenshot screenshot=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);             
@@ -134,16 +135,15 @@ public class TestBase {
 		return dest;
 	}
 
-	public ArrayList<String> dropDownOptions(WebElement dropdown)
+	public List<String> dropDownOptions(WebElement dropdown)
 	{
 		Select s = new Select(dropdown);
 		List<WebElement> myOptions = s.getOptions();
-		ArrayList<String>textOptions = new ArrayList<String>();
+		List<String>textOptions = new ArrayList<String>();
 		
-		for(WebElement e : myOptions)
-		{
-			textOptions.add(e.getText());
-		}
+		//Using streams
+		textOptions = myOptions.stream().map(option -> option.getText()).collect(Collectors.toList());
+		
 		return textOptions;
 	}
 }

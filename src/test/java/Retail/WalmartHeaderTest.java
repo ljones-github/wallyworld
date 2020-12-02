@@ -19,7 +19,7 @@ public class WalmartHeaderTest extends TestBase{
 	public void setUp() throws IOException
 	{
 		this.driver = TestBase.initializeDriver();
-		FileInputStream fis = new FileInputStream("C:\\Users\\ljone\\Walmart\\Resources\\data.properties");
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\Resources\\data.properties");
 		Properties myProps = new Properties();
 		myProps.load(fis);
 		driver.get(myProps.getProperty("url"));
@@ -57,6 +57,14 @@ public class WalmartHeaderTest extends TestBase{
 		wally.walmartPlus();
 		WalmartHeaderTest wht = new WalmartHeaderTest();
 		wht.TakeAFULLScreenshot(methodName, driver);
+	}
+	
+	@Test
+	public void wallyLocation() throws IOException, InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
+		wally.walmartLocation();
 	}
 	
 	@AfterMethod
