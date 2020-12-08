@@ -6,7 +6,7 @@
     <classes>
       <class name="Retail.WalmartHeaderTest">
         <methods>
-          <include name="wallyLocation"/>
+          <include name="wallyLocalStore"/>
           <include name="tearDown"/>
           <include name="setUp"/>
         </methods>

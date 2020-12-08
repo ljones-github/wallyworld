@@ -67,6 +67,16 @@ public class WalmartHeaderTest extends TestBase{
 		wally.walmartLocation();
 	}
 	
+	@Test
+	public void wallyLocalStore() throws IOException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
+		wally.localStore();
+		WalmartHeaderTest wht = new WalmartHeaderTest();
+		wht.TakeAFULLScreenshot(methodName, driver);
+	}
+	
 	@AfterMethod
 	public void tearDown()
 	{

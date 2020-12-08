@@ -4,7 +4,11 @@
   <test thread-count="5" name="Test">
   <parameter name="info" value="yikers"/>
   <classes>
-  	<class name="Retail.WalmartHeaderTest"/>
+  	<class name="Retail.WalmartHeaderTest">
+  		<methods>
+  			<include name="wallyLocalStore"/>
+  		</methods>
+  	</class>
   </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

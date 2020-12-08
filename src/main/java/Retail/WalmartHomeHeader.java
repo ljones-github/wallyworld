@@ -5,9 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -15,6 +18,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import jdk.jfr.Timespan;
 import junit.framework.Assert;
 
 public class WalmartHomeHeader{
@@ -162,7 +167,7 @@ public class WalmartHomeHeader{
 		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\Resources\\data.properties");
 		myProps.load(fis);
 		Actions s = hamburgerClick();
-		myWait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector("#vh-location-button")));
+		myWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#vh-location-button")));
 		Thread.sleep(1000);
 		WebElement locale = driver.findElement(By.cssSelector("#vh-location-button"));
 		try
@@ -198,13 +203,79 @@ public class WalmartHomeHeader{
 		
 	}
 	
+	public void localStore() throws IOException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		Actions s = hamburgerClick();
+		
+		myWait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#vh-store-button"))));
+		WebElement store = driver.findElement(By.cssSelector("#vh-store-button"));
+		s.moveToElement(store).pause(Duration.ofMillis(3000)).build().perform();
+		Properties myProps = new Properties();
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "\\Resources\\data.properties");
+		myProps.load(fis);
+		int option = Integer.parseInt(myProps.getProperty("option"));
+		if(option > 4)
+		{
+			option = 1;
+		}
+		//Local Store
+		WebElement 	ls = driver.findElement(By.xpath("//a[@data-uid='80hj4J6C']"));
+		//Store Finder
+		WebElement sf = driver.findElement(By.xpath("//a[@data-uid='UL8yFFCm']"));
+		//Weekly Ad
+		WebElement wa = driver.findElement(By.xpath("//a[@data-uid='YjNj1C8S']"));
+		//Pickup Today
+		WebElement pt = driver.findElement(By.xpath("//a[@data-uid='nzK_u_UN']"));
+		try
+		{
+			log.info("Attempting to click on element");
+		switch(option) {
+			case 1: 
+			{
+				ls.click();
+				log.debug("Successfully clicked on element");
+				break;
+			}
+			case 2:
+			{
+				sf.click();
+				log.debug("Successfully clicked on element");
+				break;
+			}
+			case 3:
+			{
+				wa.click();
+				log.debug("Successfully clicked on element");
+				break;
+			}
+			case 4:
+			{
+				pt.click();
+				log.debug("Successfully clicked on element");
+				break;
+			}
+			default:
+			{
+				log.error("Option " + option + "not available");
+				break;
+			}
+		}
+		}
+		catch(Exception e)
+		{
+			log.error("Class: " + WalmartHomeHeader.class.getName() + " || Method: " + methodName + " || Error: " + e);
+		}
+		
+	}
+	
 	//Used for test(s) that require the user to click on the hamburger button before clicking on another item
 	public Actions hamburgerClick()
 	{
 		methodName = new Throwable().getStackTrace()[0].getMethodName();
 		Actions s = new Actions(driver);
 		log.debug("Attempting to click on element");
-		s.click(hamburgerButton).build().perform();
+		s.moveToElement(hamburgerButton).click(hamburgerButton).build().perform();
 		log.info("Element successfully clicked");
 		return s;
 	}
