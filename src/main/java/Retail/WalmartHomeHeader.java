@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -267,6 +268,26 @@ public class WalmartHomeHeader{
 			log.error("Class: " + WalmartHomeHeader.class.getName() + " || Method: " + methodName + " || Error: " + e);
 		}
 		
+	}
+	
+	public void seeAllDepartments()
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		Actions s = hamburgerClick();
+		s.pause(Duration.ofMillis(500)).build().perform();
+		WebElement seeAll = driver.findElement(By.xpath("//a[@data-tl-id='GlobalHeaderDepartmentsMenu-allLink']"));
+		try 
+		{
+			log.debug("Attempting to click on element");
+			s.doubleClick(seeAll).pause(Duration.ofMillis(2500)).build().perform();
+			log.info("Successfully clicked on element");
+		}
+		catch (Exception e)
+		{
+			log.error("Class: " + WalmartHomeHeader.class.getName() + "|| Method: " + methodName + " Error: " + e);
+		}
+		
+		Assert.assertTrue(driver.getCurrentUrl().contains("departments"));
 	}
 	
 	//Used for test(s) that require the user to click on the hamburger button before clicking on another item
