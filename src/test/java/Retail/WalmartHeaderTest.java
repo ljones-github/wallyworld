@@ -87,6 +87,16 @@ public class WalmartHeaderTest extends TestBase{
 		wht.TakeAFULLScreenshot(methodName, driver);
 	}
 	
+	@Test
+	public void wallyDealsMenu() throws IOException, InterruptedException 
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
+		wally.dealsStaticMenu();
+		WalmartHeaderTest wht = new WalmartHeaderTest();
+		wht.takeScreenshot(methodName, driver);	
+	}
+	
 	@AfterMethod
 	public void tearDown()
 	{

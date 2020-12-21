@@ -290,6 +290,14 @@ public class WalmartHomeHeader{
 		Assert.assertTrue(driver.getCurrentUrl().contains("departments"));
 	}
 	
+	public void dealsStaticMenu() throws InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		Actions s = hamburgerClick();
+		Thread.sleep(2000);
+		WebElement dealsMenu = driver.findElement(By.xpath("//button[@data-uid='LHN-0']"));
+		s.moveToElement(dealsMenu).pause(Duration.ofMillis(2000)).build().perform();
+	}
 	//Used for test(s) that require the user to click on the hamburger button before clicking on another item
 	public Actions hamburgerClick()
 	{

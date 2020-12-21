@@ -9,7 +9,7 @@
   <classes>
   	<class name="Retail.WalmartHeaderTest">
   		<methods>
-  			<include name="wallyTrackOrder"/>
+  			<include name="wallyDealsMenu"/>
   		</methods>
   	</class>
   </classes>
