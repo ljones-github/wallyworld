@@ -4,7 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -270,16 +275,16 @@ public class WalmartHomeHeader{
 		
 	}
 	
-	public void seeAllDepartments()
+	public void seeAllDepartments() throws InterruptedException
 	{
 		methodName = new Throwable().getStackTrace()[0].getMethodName();
 		Actions s = hamburgerClick();
-		s.pause(Duration.ofMillis(500)).build().perform();
+		Thread.sleep(2000);
 		WebElement seeAll = driver.findElement(By.xpath("//a[@data-tl-id='GlobalHeaderDepartmentsMenu-allLink']"));
 		try 
 		{
 			log.debug("Attempting to click on element");
-			s.doubleClick(seeAll).pause(Duration.ofMillis(2500)).build().perform();
+			s.click(seeAll).pause(Duration.ofMillis(2500)).build().perform();
 			log.info("Successfully clicked on element");
 		}
 		catch (Exception e)
@@ -287,7 +292,37 @@ public class WalmartHomeHeader{
 			log.error("Class: " + WalmartHomeHeader.class.getName() + "|| Method: " + methodName + " Error: " + e);
 		}
 		
+		Thread.sleep(2000);
 		Assert.assertTrue(driver.getCurrentUrl().contains("departments"));
+	}
+	
+	public void dealsStaticMenuLinks() throws InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		dealsStaticMenu();
+		Thread.sleep(1000);
+		Actions s = new Actions(driver);
+		List<WebElement>dealsLinks = driver.findElements(By.xpath("//div[@id='dept-level1-item-0-children']/div/div/div/a"));
+		//for(WebElement e : dealsLinks) 
+		//{
+			//s.click(dealsLinks.get(0)).pause(Duration.ofMillis(1000)).build().perform(); 
+			//s.click(dealsLinks.get(0)).build().perform();
+			//System.out.println(dealsLinks.get(0).getAttribute("href"));
+			
+		//}
+		
+		/*ArrayList<String>websiteTitles = new ArrayList<String>();
+		Set<String>windowsIds = driver.getWindowHandles();
+		Iterator<String>windowIt = windowsIds.iterator();
+		
+		while(windowIt.hasNext())
+		{
+			driver.switchTo().window(windowIt.next());
+			websiteTitles.add(driver.getTitle());
+		}
+		
+		
+		System.out.println(websiteTitles);*/
 	}
 	
 	public void dealsStaticMenu() throws InterruptedException
@@ -297,6 +332,7 @@ public class WalmartHomeHeader{
 		Thread.sleep(2000);
 		WebElement dealsMenu = driver.findElement(By.xpath("//button[@data-uid='LHN-0']"));
 		s.moveToElement(dealsMenu).pause(Duration.ofMillis(2000)).build().perform();
+	
 	}
 	//Used for test(s) that require the user to click on the hamburger button before clicking on another item
 	public Actions hamburgerClick()

@@ -78,7 +78,7 @@ public class WalmartHeaderTest extends TestBase{
 	}
 	
 	@Test
-	public void wallyAllDepartments() throws IOException
+	public void wallyAllDepartments() throws IOException, InterruptedException
 	{
 		methodName = new Throwable().getStackTrace()[0].getMethodName();
 		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
@@ -92,7 +92,7 @@ public class WalmartHeaderTest extends TestBase{
 	{
 		methodName = new Throwable().getStackTrace()[0].getMethodName();
 		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
-		wally.dealsStaticMenu();
+		wally.dealsStaticMenuLinks();
 		WalmartHeaderTest wht = new WalmartHeaderTest();
 		wht.takeScreenshot(methodName, driver);	
 	}
