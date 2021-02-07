@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +25,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
@@ -104,9 +107,48 @@ public class TestBase {
 		FileHandler.copy(src, new File(dest));
 	}
 	
+	public void takeScreenshotAdditional(String methodName, String additional, WebDriver driver) throws IOException
+	{
+		File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		String dest = System.getProperty("user.dir") + "\\Resources\\Screenshots\\" + methodName + "_" + additional + ".png";
+		FileHandler.copy(src, new File(dest));
+	}
+	
 	public String TakeAFULLScreenshot(String methodName, WebDriver driver) throws IOException
 	{
 		String dest = System.getProperty("user.dir") + "\\Resources\\Screenshots\\" + methodName + ".png";
+		
+		 Screenshot screenshot=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);             
+		 try
+		 {
+		 	Path fileToDelete = Paths.get(dest);
+			
+			if(fileToDelete.toFile().exists())
+			{
+				Files.delete(fileToDelete);
+			}
+		 }
+		 
+		 catch(Exception e)
+		 {
+			 System.out.println("Error desc: " + e);
+		 }
+		 
+		  try 
+		  {                 
+			  ImageIO.write(screenshot.getImage(),"PNG",new File(dest));             
+		  } 
+		  catch (IOException e) 
+		  { 
+			  System.out.println("Error desc: " + e);
+		  }
+		return dest;
+	}
+
+	
+	public String TakeAFULLScreenshotAdditional(String methodName, String additional, WebDriver driver) throws IOException
+	{
+		String dest = System.getProperty("user.dir") + "\\Resources\\Screenshots\\" + methodName + "_" + additional + ".png";
 		
 		 Screenshot screenshot=new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(driver);             
 		 try
@@ -146,4 +188,49 @@ public class TestBase {
 		
 		return textOptions;
 	}
+	
+	public void scrollElementIntoView(WebElement ele, WebDriver driver)
+	{
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", ele);
+	}
+	
+	public void scrollByAmount(WebDriver driver, int pxAmount)
+	{ 
+		String pxStringAmount = String.valueOf(pxAmount) + ")";
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		String myScript = "window.scrollBy(0, " + pxStringAmount;
+		js.executeScript(myScript);
+	}
+	
+	public void scrollToEndOfPage(WebDriver driver)
+	{ 
+		((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+	}
+	
+	public void scrollToEndOfDynamicPage(WebDriver driver)
+	{
+		try {
+		    long lastHeight = (long) ((JavascriptExecutor) driver).executeScript("return document.body.scrollHeight");
+
+		    while (true) {
+		        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+		        Thread.sleep(2000);
+
+		        long newHeight = (long) ((JavascriptExecutor) driver).executeScript("return document.body.scrollHeight");
+		        if (newHeight == lastHeight) {
+		            break;
+		        }
+		        lastHeight = newHeight;
+		    }
+		} catch (InterruptedException e) {
+		    e.printStackTrace();
+		}
+	}
+	
+	public void openLinkInNewtab(WebElement webEleLink, WebDriver driver)
+	{
+		Actions s = new Actions(driver);
+		s.keyDown(Keys.CONTROL).click(webEleLink).build().perform();
+	}
+	
 }

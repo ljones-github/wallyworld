@@ -62,7 +62,31 @@ public class WalmartHomeHeader{
 	
 	@FindBy(css="#hf-cart")
 	private WebElement cart;
+	
+	//Located at bottom of page so much scroll in thirdPartyLinks() so that they are visible and can be located
+	private WebElement allswell;
 
+	private WebElement artcom;
+	
+	private WebElement bonobos;
+	
+	private WebElement eloquii;
+	
+	private WebElement hayneedle;
+	
+	private WebElement moosejaw;
+	
+	private WebElement walmartEbooks;
+	
+	private WebElement walmartPhoto;
+	
+	private WebElement samsclub;
+	
+	@FindBy(xpath="//a[@data-asset-id='7211bac0-4191-11eb-91e9-a956a2215d07']")
+	private WebElement walmartplus;
+	
+	
+	
 	public WalmartHomeHeader(WebDriver driver)
 	{
 		this.driver = driver;
@@ -343,5 +367,62 @@ public class WalmartHomeHeader{
 		s.moveToElement(hamburgerButton).click(hamburgerButton).build().perform();
 		log.info("Element successfully clicked");
 		return s;
+	}
+	
+	public void thirdPartyLinks() throws IOException, InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		//Actions s = new Actions(driver);
+		TestBase b = new TestBase();
+		//s.pause(Duration.ofMillis(3000)).build().perform();
+		b.scrollToEndOfDynamicPage(driver);
+		
+		allswell = driver.findElement(By.xpath("//a[@data-asset-id='912d82a0-47e2-11e8-a933-2b761ff8f3ff']"));
+
+		artcom = driver.findElement(By.xpath("//a[@data-asset-id='51618681']"));
+		
+		bonobos = driver.findElement(By.xpath("//a[@data-asset-id='364aafa0-345c-11e8-9fa4-1fe46015a32f']"));
+		
+		eloquii = driver.findElement(By.xpath("//a[@data-asset-id='71eb8700-e159-11e8-8987-a98e1fc4adfb']"));
+		
+		hayneedle = driver.findElement(By.xpath("//a[@data-asset-id='b68e575f-337f-4efe-a5a9-850039db26af']"));
+		
+		moosejaw = driver.findElement(By.xpath("//a[@data-asset-id='b68e575f-337f-4efe-a5a9-850039db26af']"));
+		
+		walmartEbooks = driver.findElement(By.xpath("//a[@data-asset-id='a8d79dc4-5bbc-4739-ba89-51f11402f9e1']"));
+		
+		walmartPhoto = driver.findElement(By.xpath("//a[@data-asset-id='a9de35b0-21de-11ea-93c6-1996e8589414']"));
+		
+		samsclub = driver.findElement(By.xpath("//a[@data-asset-id='8e94b3a0-e55d-11e9-9c92-af47acdd3383']"));
+		
+		walmartplus = driver.findElement(By.xpath("//a[@data-asset-id='7211bac0-4191-11eb-91e9-a956a2215d07']"));
+		
+		try
+		{
+			b.openLinkInNewtab(allswell, driver);
+			b.openLinkInNewtab(artcom, driver);
+			b.openLinkInNewtab(bonobos, driver);
+			b.openLinkInNewtab(eloquii, driver);
+			b.openLinkInNewtab(hayneedle, driver);
+			b.openLinkInNewtab(moosejaw, driver);
+			b.openLinkInNewtab(walmartEbooks, driver);
+			b.openLinkInNewtab(samsclub, driver);
+			b.openLinkInNewtab(walmartplus, driver);
+		}
+		catch(Exception e)
+		{
+			log.error("Class: " + WalmartHomeHeader.class.getName() + "||" + "Method: " + methodName + " || Error: " + e);
+		}
+			
+		Iterator<String>windowsIt = driver.getWindowHandles().iterator();
+		int imgCount = 1;
+		while(windowsIt.hasNext())
+		{
+			driver.switchTo().window(windowsIt.next());
+			
+		
+			b.TakeAFULLScreenshotAdditional(methodName, String.valueOf(imgCount), driver);
+			imgCount++;
+		}
 	}
 }

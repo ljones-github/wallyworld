@@ -97,6 +97,14 @@ public class WalmartHeaderTest extends TestBase{
 		wht.takeScreenshot(methodName, driver);	
 	}
 	
+	@Test
+	public void wallyThirdParty() throws IOException, InterruptedException
+	{
+		methodName = new Throwable().getStackTrace()[0].getMethodName();
+		WalmartHomeHeader wally = new WalmartHomeHeader(driver);
+		wally.thirdPartyLinks();
+	}
+	
 	@AfterMethod
 	public void tearDown()
 	{
